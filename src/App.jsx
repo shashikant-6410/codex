@@ -7,10 +7,12 @@ import Issues from './components/Issues';
 import Reports from './components/Reports';
 import Settings from './components/Settings';
 import Login from './components/Login';  // ✅ import the Login component
+import IssueDetails from "./components/IssueDetails";
 import './App.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const API_URL="https://isuue-report-api.onrender.com/api/report/id"
   
 
   const handleLogin = () => {
@@ -37,6 +39,7 @@ function App() {
               {/* <Route path="departments" element={<Departments />} /> */}
               <Route path="reports" element={<Reports />} />
               <Route path="settings" element={<Settings />} />
+              <Route path="issues/:id" element={<IssueDetails />} />
             </Route>
           </Routes>
         )}

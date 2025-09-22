@@ -212,7 +212,7 @@ const Issues = () => {
             <p><strong>Location:</strong> {selectedIssue.location}</p>
             <p><strong>Zone:</strong> {selectedIssue.zone}</p>
             <p><strong>Status:</strong> {selectedIssue.status}</p>
-            <p><strong>Priority:</strong> {selectedIssue.pirorty || "N/A"}</p>
+            {/* <p><strong>Priority:</strong> {selectedIssue.pirorty || "N/A"}</p> */}
             <p><strong>Description:</strong> {selectedIssue.description}</p>
             <p><strong>Created At:</strong> {new Date(selectedIssue.created_at).toLocaleString()}</p>
             {selectedIssue.image && (
