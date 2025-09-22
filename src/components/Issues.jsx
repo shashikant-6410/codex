@@ -74,18 +74,77 @@
 // export default Issues;
 
 
+// import React, { useState, useEffect } from "react";
+
+// const Issues = () => {
+//   const [issues, setIssues] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     fetch("/api/api/report/all")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         console.log("API Response:", data); // 👈 check structure
+//         // If API gives an array
+//         setIssues(Array.isArray(data) ? data : data.reports || []);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching issues:", err);
+//         setLoading(false);
+//       });
+//   }, []);
+
+//   if (loading) return <p>Loading issues...</p>;
+
+//   return (
+//     <div>
+//       <h1 className="section-title">Reported Issues</h1>
+
+//       {issues.length === 0 ? (
+//         <p>No issues found.</p>
+//       ) : (
+//         <table style={{ width: "100%", borderCollapse: "collapse" }}>
+//           <thead>
+//             <tr style={{ borderBottom: "2px solid #e5e7eb" }}>
+//               <th style={{ padding: "12px" }}>ID</th>
+//               <th style={{ padding: "12px" }}>Category</th>
+//               <th style={{ padding: "12px" }}>Location</th>
+//               <th style={{ padding: "12px" }}>Status</th>
+//               <th style={{ padding: "12px" }}>Zone</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {issues.map((issue) => (
+//               <tr key={issue.id} style={{ borderBottom: "1px solid #eee" }}>
+//                 <td style={{ padding: "12px" }}>#{issue.id}</td>
+//                 <td style={{ padding: "12px" }}>{issue.category}</td>
+//                 <td style={{ padding: "12px" }}>{issue.location}</td>
+//                 <td style={{ padding: "12px" }}>{issue.status}</td>
+//                 <td style={{ padding: "12px" }}>{issue.zone}</td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Issues;
+
 import React, { useState, useEffect } from "react";
+import "./Issues.css";
 
 const Issues = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedIssue, setSelectedIssue] = useState(null);
 
   useEffect(() => {
     fetch("/api/api/report/all")
       .then((res) => res.json())
       .then((data) => {
-        console.log("API Response:", data); // 👈 check structure
-        // If API gives an array
         setIssues(Array.isArray(data) ? data : data.reports || []);
         setLoading(false);
       })
@@ -98,34 +157,75 @@ const Issues = () => {
   if (loading) return <p>Loading issues...</p>;
 
   return (
-    <div>
+    <div className="issues-container">
       <h1 className="section-title">Reported Issues</h1>
 
       {issues.length === 0 ? (
         <p>No issues found.</p>
       ) : (
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <table className="issues-table">
           <thead>
-            <tr style={{ borderBottom: "2px solid #e5e7eb" }}>
-              <th style={{ padding: "12px" }}>ID</th>
-              <th style={{ padding: "12px" }}>Category</th>
-              <th style={{ padding: "12px" }}>Location</th>
-              <th style={{ padding: "12px" }}>Status</th>
-              <th style={{ padding: "12px" }}>Zone</th>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Zone</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {issues.map((issue) => (
-              <tr key={issue.id} style={{ borderBottom: "1px solid #eee" }}>
-                <td style={{ padding: "12px" }}>#{issue.id}</td>
-                <td style={{ padding: "12px" }}>{issue.category}</td>
-                <td style={{ padding: "12px" }}>{issue.location}</td>
-                <td style={{ padding: "12px" }}>{issue.status}</td>
-                <td style={{ padding: "12px" }}>{issue.zone}</td>
+              <tr key={issue.id}>
+                <td>#{issue.id}</td>
+                <td>{issue.category}</td>
+                <td>{issue.location}</td>
+                <td>{issue.status}</td>
+                <td>{issue.zone}</td>
+                <td>
+                  <button
+                    className="view-btn"
+                    onClick={() => setSelectedIssue(issue)}
+                  >
+                    View Issue
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+      )}
+
+      {/* Modal */}
+      {selectedIssue && (
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedIssue(null)}
+        >
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Issue #{selectedIssue.id}</h2>
+            <p><strong>Category:</strong> {selectedIssue.category}</p>
+            <p><strong>Email:</strong> {selectedIssue.email}</p>
+            <p><strong>Location:</strong> {selectedIssue.location}</p>
+            <p><strong>Zone:</strong> {selectedIssue.zone}</p>
+            <p><strong>Status:</strong> {selectedIssue.status}</p>
+            <p><strong>Priority:</strong> {selectedIssue.pirorty || "N/A"}</p>
+            <p><strong>Description:</strong> {selectedIssue.description}</p>
+            <p><strong>Created At:</strong> {new Date(selectedIssue.created_at).toLocaleString()}</p>
+            {selectedIssue.image && (
+              <img src={selectedIssue.image} alt="Issue" />
+            )}
+            <button
+              className="close-btn"
+              onClick={() => setSelectedIssue(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
