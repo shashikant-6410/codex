@@ -1,11 +1,13 @@
 import React from 'react';
+import MapComponent from "./MapComponent";
+
 
 const Dashboard = () => {
   // Sample data for the dashboard
   const stats = {
-    newIssues: 12,
-    inProgress: 35,
-    resolved: 78
+    newIssues: 9,
+    inProgress: 5,
+    resolved: 20
   };
 
   const urgentIssues = 3;
@@ -34,9 +36,10 @@ const Dashboard = () => {
         <div className="map-section">
           <h2 className="section-title">City Hotspots</h2>
           
-          <div className="map-container">
+          <div className="map-container" style={{ height: "400px", width: "100%" }}>
             <div className="map-overlay">
-              <svg width="100%" height="100%" viewBox="0 0 400 320">
+              <MapComponent />
+              {/* <svg width="100%" height="100%" viewBox="0 0 400 320">
                 <rect x="0" y="0" width="120" height="320" fill="#60a5fa" />
                 <rect x="300" y="0" width="100" height="200" fill="#60a5fa" />
                 <rect x="120" y="0" width="180" height="320" fill="#86efac" />
@@ -50,16 +53,16 @@ const Dashboard = () => {
                   <line x1="200" y1="0" x2="200" y2="320" />
                   <line x1="250" y1="0" x2="250" y2="320" />
                 </g>
-              </svg>
+              </svg> */}
             </div>
             
             {/* Map Markers */}
-            <div className="map-marker pink">📍</div>
+            {/* <div className="map-marker pink">📍</div>
             <div className="map-marker purple">👤</div>
             <div className="map-marker green-1">📍</div>
-            <div className="map-marker green-2">📍</div>
+            <div className="map-marker green-2">📍</div> */}
             
-            <div className="map-label">San Francisco</div>
+            {/* <div className="map-label">San Francisco</div> */}
           </div>
         </div>
 
@@ -109,3 +112,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

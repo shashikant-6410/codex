@@ -1,15 +1,19 @@
 import React from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import './Dashboard.css'; // Reuse the same styles
 
-const Layout = () => {
-  const navigate = useNavigate();
+const Layout = ({ onLogout }) => {
+  // const handleLogout = () => {
+  //   if (onLogout) onLogout(); // trigger logout in App.jsx
+  // };
 
-  const handleLogout = () => {
-    // Add logout logic here
-    console.log('Logging out...');
-    // navigate('/login'); // If you have a login page
-  };
+  // const handleLogout = () => {
+  //   // Add logout logic here
+  //   console.log('Logging out...');
+  //   // navigate('/login'); // If you have a login page
+  // };
+  
+  
 
   return (
     <div className="dashboard-container">
@@ -21,7 +25,7 @@ const Layout = () => {
             <div className="logo-icon">
               🏢
             </div>
-            <h1 className="logo-text">CityConnect</h1>
+            <h1 className="logo-text">Nagar<span style={{'color':'green'}}>Setu</span></h1>
           </div>
         </div>
 
@@ -49,7 +53,7 @@ const Layout = () => {
                 ⚠️ <span>Issues</span>
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink 
                 to="/departments" 
                 className={({ isActive }) => 
@@ -58,7 +62,7 @@ const Layout = () => {
               >
                 🏢 <span>Departments</span>
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink 
                 to="/reports" 
@@ -66,7 +70,7 @@ const Layout = () => {
                   isActive ? "nav-item active" : "nav-item"
                 }
               >
-                📈 <span>Reports</span>
+                📈 <span>Map</span>
               </NavLink>
             </li>
             <li>
@@ -91,7 +95,7 @@ const Layout = () => {
           
           {/* User Actions */}
           <div className="header-actions">
-            <button className="logout-btn" onClick={handleLogout}>
+            <button className="logout-btn" onClick={onLogout}>
               🚪 <span>Logout</span>
             </button>
             

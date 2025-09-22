@@ -45,7 +45,7 @@
 .logo-text {
   font-size: 20px;
   font-weight: 700;
-  color: #111827;
+  color: #132711;
 }
 
 .sidebar-nav {
@@ -210,7 +210,7 @@
 .map-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0.2;
+  opacity: 1;
 }
 
 .map-marker {
@@ -405,4 +405,7 @@
   .sidebar {
     width: 280px;
   }
+
+  
 }
+
